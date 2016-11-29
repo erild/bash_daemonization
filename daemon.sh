@@ -33,7 +33,7 @@ function daemon_function() {
   while [ true ]; do
   	#insert daemon function here
   	echo "dsdsds"
-    sleep 900
+    sleep 10
   done
 }
 
@@ -46,14 +46,17 @@ case $1 in
 		$0 start
 		;;
 	start)
-		daemonize
-		daemon_function
+		$0 run &
 		echo "Daemon Started"
 		#closing input/output
 		exec 2>&-
 		exec 1>&-
 		exec 0<&-
 		exit 0
+		;;
+	run)
+		daemonize
+		daemon_function
 		;;
 	stop)
 		echo -n "Terminating daemon... "
