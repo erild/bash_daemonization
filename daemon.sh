@@ -31,10 +31,21 @@ function daemonize() {
 
 function daemon_function() {
   while [ true ]; do
+  	checkforkill
   	#insert daemon function here
   	echo "dsdsds"
     sleep 10
   done
+}
+
+function checkforkill() {
+	if [ -f $D_KILLFILE ]; then
+		echo $(date)" Terminating gracefully" >> $D_ERRFILE
+		rm $D_PIDFILE
+		rm $D_KILLFILE
+		kill $D_PID
+		exit 0
+	fi
 }
 
 
