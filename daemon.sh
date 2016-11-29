@@ -33,7 +33,6 @@ function daemon_function() {
   while [ true ]; do
   	checkforkill
   	#insert daemon function here
-  	echo "dsdsds"
     sleep 10
   done
 }
@@ -116,5 +115,13 @@ case $1 in
 			echo "$D_NAME is not running"
 			exit 1
 		fi
+		;;
+	help|--help|-h)
+		echo "Usage: $0 [ start | stop | restart | status ]"
+		exit 0
+		;;
+	*)
+		echo "Invalid argument"
+		$0 help
 		;;
 esac
